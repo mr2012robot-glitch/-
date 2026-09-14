@@ -27,6 +27,15 @@ jobs:
       - name: Re-create Android Platform Files
         run: flutter create . --platforms=android
 
+      - name: Fix compileSdk to 36
+        run: |
+          sed -i 's/compileSdk = .*/compileSdk = 36/' android/app/build.gradle || true
+          sed -i 's/compileSdkVersion .*/compileSdkVersion 36/' android/app/build.gradle || true
+
+      - name: Create Missing Assets Directories
+        run: |
+          mkdir -p assets/data assets/images assets/audio
+
       - name: Install dependencies
         run: flutter pub get
 
